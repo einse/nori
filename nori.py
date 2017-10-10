@@ -19,10 +19,12 @@ while to_add != '':
         latin = to_latin(alist[-(i+1)])
         screen.addstr(3+i, 2, latin)
         i = i + 1
+    hits_message = 'No hits.'
+    screen.addstr(2, 2, hits_message)
     screen.refresh()
     
     # x = screen.getch()
-    to_add = screen.getstr(2, 2, 76)
+    to_add = screen.getstr(1, 2, 76)
     to_add = to_russian(to_add)
     alist.append(to_add)
     text = text + ', ' + to_add
