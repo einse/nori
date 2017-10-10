@@ -14,7 +14,10 @@ q2j = {'q': u'й', 'w': u'ц', 'e': u'у', 'r': u'к',
 def to_russian(string):
     string_in_russian = u''
     for latin in string:
-        cyrillic = q2j[latin]
+        try:
+            cyrillic = q2j[latin]
+        except:
+            cyrillic = u'' + latin
         string_in_russian = string_in_russian + cyrillic
     return string_in_russian
 
@@ -32,6 +35,9 @@ u2a = {u'й': 'j', u'ц': 'c', u'у': 'u', u'к': 'k',
 def to_latin(string_in_russian):
     ascii_string = ''
     for cyrillic in string_in_russian:
-        latin = u2a[cyrillic]
+        try:
+            latin = u2a[cyrillic]
+        except:
+            latin = u'' + cyrillic
         ascii_string = ascii_string + latin
     return ascii_string
