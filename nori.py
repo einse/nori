@@ -4,10 +4,11 @@ import curses
 from russian import to_russian, to_latin
 
 text = ':'
-to_add = '*'
+term = '*'
 alist = []
+results = []
 
-while to_add != '':
+while term != '':
     screen = curses.initscr()
     # curses.noecho(); curses.cbreak()
     
@@ -24,9 +25,11 @@ while to_add != '':
     screen.refresh()
     
     # x = screen.getch()
-    to_add = screen.getstr(1, 2, 76)
-    to_add = to_russian(to_add)
-    alist.append(to_add)
-    text = text + ', ' + to_add
+    term = screen.getstr(1, 2, 76)
+    term = to_russian(term)
+    # data = load_files()
+    # count_of_found = search(term, data)
+    alist.append(term)
+    # results.append(count_of_found)
     
 curses.endwin()
