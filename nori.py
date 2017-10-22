@@ -2,34 +2,43 @@
 
 import curses
 from russian import to_russian, to_latin
+from search import search
+from load import load_files
 
-text = ':'
-term = '*'
-alist = []
-results = []
+term = ' '
+list_of_terms = []
+list_of_strings = load_files('./files')
+results_strings = []
+results_counters = []
 
+message = 'Strings loaded: ' + str(len(list_of_strings))
+
+screen = curses.initscr()
 while term != '':
-    screen = curses.initscr()
     # curses.noecho(); curses.cbreak()
     
     screen.clear()
     screen.border(0)
     # screen.addstr(4, 2, text)
     i = 0
-    while i < 10 and i < len(alist):
-        latin = to_latin(alist[-(i+1)])
+    while i < 10 and i < len(list_of_terms):
+        latin = to_latin(list_of_terms[-(i+1)])
         screen.addstr(3+i, 2, latin)
         i = i + 1
-    hits_message = 'No hits.'
-    screen.addstr(2, 2, hits_message)
+    screen.addstr(2, 2, message)
     screen.refresh()
     
     # x = screen.getch()
     term = screen.getstr(1, 2, 76)
     term = to_russian(term)
-    # data = load_files()
-    # count_of_found = search(term, data)
-    alist.append(term)
-    # results.append(count_of_found)
+    list_of_terms.append(term)
+    
+    if len(results_counters) > 0:
+        list_of_strings = results_strings
+    results_strings = search(term, list_of_strings)
+    count_of_found = len(results_strings)
+    results_counters.append(count_of_found)
+    
+    message = str(count_of_found)
     
 curses.endwin()
