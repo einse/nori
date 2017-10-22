@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import curses
 from russian import to_russian, to_latin
 from search import search
@@ -22,8 +20,7 @@ while term != '':
     # screen.addstr(4, 2, text)
     i = 0
     while i < 10 and i < len(list_of_terms):
-        latin = to_latin(list_of_terms[-(i+1)])
-        screen.addstr(3+i, 2, latin)
+        screen.addstr(3+i, 2, to_latin(list_of_terms[-(i+1)]))
         i = i + 1
     screen.addstr(2, 2, message)
     screen.refresh()
