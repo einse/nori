@@ -1,4 +1,4 @@
-import curses
+# import curses
 from russian import to_russian, to_latin
 from search import search
 from load import load_files
@@ -11,8 +11,9 @@ results_counters = []
 
 message = 'Strings loaded: ' + str(len(list_of_strings))
 
-screen = curses.initscr()
+# screen = curses.initscr()
 while term != '':
+    break
     # curses.noecho(); curses.cbreak()
     
     screen.clear()
@@ -38,4 +39,13 @@ while term != '':
     
     message = str(count_of_found)
     
-curses.endwin()
+# curses.endwin()
+
+from bearlibterminal import terminal as t
+
+t.open()
+t.set('input.filter=[keyboard, close]')
+t.printf(2, 1, 'Привет, мир')
+t.refresh()
+t.read()
+t.close()
