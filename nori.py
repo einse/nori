@@ -1,4 +1,4 @@
-# import curses
+from bearlibterminal import terminal as t
 from russian import to_russian, to_latin
 from search import search
 from load import load_files
@@ -11,24 +11,18 @@ results_counters = []
 
 message = 'Strings loaded: ' + str(len(list_of_strings))
 
-# screen = curses.initscr()
+t.open()
+t.set('input.filter=[keyboard, close]')
 while term != '':
-    break
-    # curses.noecho(); curses.cbreak()
-    
-    screen.clear()
-    screen.border(0)
-    # screen.addstr(4, 2, text)
+    t.clear()
     i = 0
     while i < 10 and i < len(list_of_terms):
-        screen.addstr(3+i, 2, to_latin(list_of_terms[-(i+1)]))
+        t.printf(0, 2+i, list_of_terms[-(i+1)])
         i = i + 1
-    screen.addstr(2, 2, message)
-    screen.refresh()
+    t.printf(0, 1, message)
+    t.refresh()
     
-    # x = screen.getch()
-    term = screen.getstr(1, 2, 76)
-    term = to_russian(term)
+    len_, term = t.read_str(0, 0, '', 76)
     list_of_terms.append(term)
     
     if len(results_counters) > 0:
@@ -38,14 +32,4 @@ while term != '':
     results_counters.append(count_of_found)
     
     message = str(count_of_found)
-    
-# curses.endwin()
-
-from bearlibterminal import terminal as t
-
-t.open()
-t.set('input.filter=[keyboard, close]')
-t.printf(2, 1, 'Привет, мир')
-t.refresh()
-t.read()
 t.close()
