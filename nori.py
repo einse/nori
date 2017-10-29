@@ -1,5 +1,4 @@
 from bearlibterminal import terminal as t
-from russian import to_russian, to_latin
 from search import search
 from load import load_files
 
